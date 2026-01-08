@@ -1,0 +1,23 @@
+.menuItem,
+.menuItem:focus,
+.menuItem:active {
+  padding: 1rem;
+  display: block;
+  border: 0;
+  width: 100%;
+  cursor: pointer;
+  background-color: var(--bg-color-menu);
+  color: var(--text-color);
+  text-align: left;
+}
+.menuItem__selected,
+.menuItem__selected:focus,
+.menuItem__selected:active,
+.menuItem__selected:hover {
+  background-color: var(--link-color);
+  color: var(--text-link-color);
+}
+.menuItem:hover:not(.menuItem__selected) {
+  background-color: var(--link-color-hover);
+  color: var(--text-link-color);
+}

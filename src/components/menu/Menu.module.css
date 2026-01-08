@@ -1,0 +1,5 @@
+.menu {
+  background-color: var(--bg-color-menu);
+  height: 100%;
+  overflow-y: auto;
+}

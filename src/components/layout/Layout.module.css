@@ -1,0 +1,14 @@
+.mainPage {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background-color: var(--page-bg-color);
+  color: var(--text-color);
+}
+
+.mainPage__content {
+  display: grid;
+  gap: 0;
+  grid-template-columns: 15rem 1fr;
+  overflow: hidden;
+}

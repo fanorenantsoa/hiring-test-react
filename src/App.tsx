@@ -1,15 +1,15 @@
 import "./App.css";
-import { useAppContext } from "./contexts/AppContext";
+import { Layout } from "./components/layout/Layout";
+import { AppContextProvider } from "./contexts/AppContext";
+import { Page } from "./features/page/Page";
 
 function App() {
-  const { features } = useAppContext();
-
   return (
-    <>
-      {features.map((feature) => (
-        <p key={feature.id}>{feature.name}</p>
-      ))}
-    </>
+    <AppContextProvider>
+      <Layout>
+        <Page />
+      </Layout>
+    </AppContextProvider>
   );
 }
 
