@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import type { Feature } from "../types/Feature";
+import { useFeatures } from "../hooks/useFeatures";
 
 type Theme = "light" | "dark";
 
@@ -29,9 +30,8 @@ export const useAppContext = () => {
 };
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
-  const [features, setFeatures] = useState<Feature[]>([]);
+  const { features, loading } = useFeatures();
   const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
-  const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = localStorage.getItem("theme");
     return (saved as Theme) || "light";
@@ -48,20 +48,10 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    fetch("/api/data.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setFeatures(data);
-        if (data.length > 0) {
-          setSelectedFeature(data[0]);
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error loading data:", err);
-        setLoading(false);
-      });
-  }, []);
+    if (features.length > 0 && !selectedFeature) {
+      setSelectedFeature(features[0]);
+    }
+  }, [features, selectedFeature]);
 
   const toggleTheme = () => {
     setTheme((prev) => {
