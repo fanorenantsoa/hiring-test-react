@@ -8,14 +8,16 @@ export const Menu = () => {
   return (
     <aside className={styles.menu}>
       <nav>
-        {features.map((feature) => (
-          <MenuItem
-            key={feature.id}
-            feature={feature}
-            isSelected={selectedFeature?.id === feature.id}
-            onClick={() => setSelectedFeature(feature)}
-          />
-        ))}
+        <ul>
+          {features.map((feature) => (
+            <MenuItem
+              key={feature.id}
+              feature={feature}
+              isSelected={selectedFeature?.id === feature.id}
+              onClick={() => setSelectedFeature(feature)}
+            />
+          ))}
+        </ul>
       </nav>
     </aside>
   );

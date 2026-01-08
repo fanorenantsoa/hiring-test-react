@@ -14,13 +14,15 @@ export const MenuItem: FC<MenuItemProps> = ({
   onClick,
 }) => {
   return (
-    <button
-      className={clsx(styles.menuItem, {
-        [styles.menuItem__selected]: isSelected,
-      })}
-      onClick={onClick}
-    >
-      {feature.name}
-    </button>
+    <li>
+      <button
+        className={clsx(styles.menuItem, {
+          [styles.menuItem__selected]: isSelected,
+        })}
+        onClick={onClick}
+      >
+        {feature.name}
+      </button>
+    </li>
   );
 };
