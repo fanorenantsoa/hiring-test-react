@@ -4,11 +4,13 @@ import userEvent from "@testing-library/user-event";
 import { MainHeader } from "../../../components/header/MainHeader";
 import { AppContextProvider } from "../../../contexts/AppContext";
 
-global.fetch = vi.fn();
+window.fetch = vi.fn();
 
 describe("MainHeader", () => {
   beforeEach(() => {
     vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      statusText: "OK",
       json: async () => [],
     } as Response);
     document.documentElement.removeAttribute("data-theme");

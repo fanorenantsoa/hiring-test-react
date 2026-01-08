@@ -3,7 +3,7 @@ import { renderHook, act } from "@testing-library/react";
 import { AppContextProvider, useAppContext } from "../../contexts/AppContext";
 
 // Mock du fetch
-global.fetch = vi.fn();
+window.fetch = vi.fn();
 
 describe("AppContext", () => {
   beforeEach(() => {
@@ -12,6 +12,8 @@ describe("AppContext", () => {
     document.documentElement.removeAttribute("data-theme");
     // Mock fetch par défaut pour tous les tests
     vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      statusText: "OK",
       json: async () => [],
     } as Response);
   });
@@ -44,6 +46,8 @@ describe("AppContext", () => {
     // Réinitialiser le mock pour ce test spécifique
     vi.mocked(fetch).mockReset();
     vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      statusText: "OK",
       json: async () => mockFeatures,
     } as Response);
 
@@ -63,6 +67,8 @@ describe("AppContext", () => {
     const mockFeature = { id: 1, name: "Test", description: "Desc" };
 
     vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      statusText: "OK",
       json: async () => [mockFeature],
     } as Response);
 

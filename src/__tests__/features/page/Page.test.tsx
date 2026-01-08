@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { Page } from "../../../features/page/Page";
 import { AppContextProvider } from "../../../contexts/AppContext";
 
-global.fetch = vi.fn();
+window.fetch = vi.fn();
 
 describe("Page", () => {
   beforeEach(() => {
@@ -12,6 +12,8 @@ describe("Page", () => {
 
   it("devrait afficher un message quand aucune feature n'est sélectionnée", () => {
     vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      statusText: "OK",
       json: async () => [],
     } as Response);
 
@@ -29,6 +31,8 @@ describe("Page", () => {
     ];
 
     vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      statusText: "OK",
       json: async () => mockFeatures,
     } as Response);
 
@@ -49,6 +53,8 @@ describe("Page", () => {
     ];
 
     vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      statusText: "OK",
       json: async () => mockFeatures,
     } as Response);
 

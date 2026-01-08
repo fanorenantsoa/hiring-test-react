@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../../App";
 
-global.fetch = vi.fn();
+window.fetch = vi.fn();
 
 describe("App Integration", () => {
   const mockFeatures = [
@@ -22,6 +22,8 @@ describe("App Integration", () => {
     const user = userEvent.setup();
 
     vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      statusText: "OK",
       json: async () => mockFeatures,
     } as Response);
 
@@ -42,6 +44,8 @@ describe("App Integration", () => {
     const user = userEvent.setup();
 
     vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      statusText: "OK",
       json: async () => mockFeatures,
     } as Response);
 
@@ -59,6 +63,8 @@ describe("App Integration", () => {
 
   it("devrait afficher le header, le menu et le contenu", async () => {
     vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      statusText: "OK",
       json: async () => mockFeatures,
     } as Response);
 
@@ -79,6 +85,8 @@ describe("App Integration", () => {
     const user = userEvent.setup();
 
     vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      statusText: "OK",
       json: async () => mockFeatures,
     } as Response);
 

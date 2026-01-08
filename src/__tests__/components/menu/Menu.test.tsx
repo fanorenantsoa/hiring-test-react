@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { Menu } from "../../../components/menu/Menu";
 import { AppContextProvider } from "../../../contexts/AppContext";
 
-global.fetch = vi.fn();
+window.fetch = vi.fn();
 
 describe("Menu", () => {
   const mockFeatures = [
@@ -15,6 +15,8 @@ describe("Menu", () => {
 
   beforeEach(() => {
     vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      statusText: "OK",
       json: async () => mockFeatures,
     } as Response);
   });
