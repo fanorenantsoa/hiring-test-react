@@ -119,6 +119,11 @@ describe("AppContext", () => {
   });
 
   it("devrait gérer les erreurs lors du chargement des features", async () => {
+    // Mock console.error pour éviter qu'il apparaisse dans stderr
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
     // Réinitialiser le mock pour ce test spécifique
     vi.mocked(fetch).mockReset();
     vi.mocked(fetch).mockRejectedValueOnce(new Error("Network error"));
@@ -132,5 +137,8 @@ describe("AppContext", () => {
     });
 
     expect(result.current.features).toEqual([]);
+
+    // Restaurer console.error
+    consoleErrorSpy.mockRestore();
   });
 });
