@@ -8,10 +8,10 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className={styles.mainPage}>
       <MainHeader />
-      <section className={styles.mainPage__content}>
+      <div className={styles.mainPage__content}>
         <Menu />
         <Content>{children}</Content>
-      </section>
+      </div>
     </div>
   );
 };
