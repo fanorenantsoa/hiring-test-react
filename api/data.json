@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Sample Data 1",
+    "description": "This is a sample value."
+  },
+  {
+    "id": 2,
+    "name": "Sample Data 2",
+    "description": "This is another sample value."
+  },
+  {
+    "id": 3,
+    "name": "Sample Data 3",
+    "description": "This is the third sample value."
+  },
+  {
+    "id": 4,
+    "name": "Sample Data 4",
+    "description": "This is the fourth sample value."
+  },
+  {
+    "id": 5,
+    "name": "Sample Data 5",
+    "description": "This is the fifth sample value."
+  },
+  {
+    "id": 6,
+    "name": "Sample Data 6",
+    "description": "This is the sixth sample value."
+  },
+  {
+    "id": 7,
+    "name": "Sample Data 7",
+    "description": "This is the seventh sample value."
+  },
+  {
+    "id": 8,
+    "name": "Sample Data 8",
+    "description": "This is the eighth sample value."
+  },
+  {
+    "id": 9,
+    "name": "Sample Data 9",
+    "description": "This is the ninth sample value."
+  },
+  {
+    "id": 10,
+    "name": "Sample Data 10",
+    "description": "This is the tenth sample value."
+  }
+]
