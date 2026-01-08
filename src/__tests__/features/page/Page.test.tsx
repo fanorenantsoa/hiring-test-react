@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { Page } from "../../../features/page/Page";
 import { AppContextProvider } from "../../../contexts/AppContext";
 
@@ -10,7 +10,7 @@ describe("Page", () => {
     vi.clearAllMocks();
   });
 
-  it("devrait afficher un message quand aucune feature n'est sélectionnée", () => {
+  it("devrait afficher un message quand aucune feature n'est sélectionnée", async () => {
     vi.mocked(fetch).mockResolvedValueOnce({
       ok: true,
       statusText: "OK",
@@ -22,7 +22,10 @@ describe("Page", () => {
         <Page />
       </AppContextProvider>,
     );
-    expect(screen.getByText(/Sélectionnez un élément/i)).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByText(/Sélectionnez un élément/i)).toBeInTheDocument();
+    });
   });
 
   it("devrait afficher la description de la feature sélectionnée", async () => {

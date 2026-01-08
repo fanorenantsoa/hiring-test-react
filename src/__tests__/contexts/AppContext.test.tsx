@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { renderHook, act } from "@testing-library/react";
+import { renderHook, act, waitFor } from "@testing-library/react";
 import { AppContextProvider, useAppContext } from "../../contexts/AppContext";
 
 // Mock du fetch
@@ -18,16 +18,27 @@ describe("AppContext", () => {
     } as Response);
   });
 
-  it("devrait initialiser avec le thème light par défaut", () => {
+  it("devrait initialiser avec le thème light par défaut", async () => {
     const { result } = renderHook(() => useAppContext(), {
       wrapper: AppContextProvider,
     });
+
+    // Attendre que le chargement soit terminé
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
     expect(result.current.theme).toBe("light");
   });
 
-  it("devrait basculer le thème entre light et dark", () => {
+  it("devrait basculer le thème entre light et dark", async () => {
     const { result } = renderHook(() => useAppContext(), {
       wrapper: AppContextProvider,
+    });
+
+    // Attendre que le chargement soit terminé
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
     });
 
     act(() => {
@@ -55,15 +66,15 @@ describe("AppContext", () => {
       wrapper: AppContextProvider,
     });
 
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 0));
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
     });
 
     expect(result.current.features).toEqual(mockFeatures);
     expect(result.current.selectedFeature).toEqual(mockFeatures[0]);
   });
 
-  it("devrait sélectionner une feature", () => {
+  it("devrait sélectionner une feature", async () => {
     const mockFeature = { id: 1, name: "Test", description: "Desc" };
 
     vi.mocked(fetch).mockResolvedValueOnce({
@@ -74,6 +85,11 @@ describe("AppContext", () => {
 
     const { result } = renderHook(() => useAppContext(), {
       wrapper: AppContextProvider,
+    });
+
+    // Attendre que le chargement soit terminé
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
     });
 
     act(() => {
@@ -88,13 +104,18 @@ describe("AppContext", () => {
       wrapper: AppContextProvider,
     });
 
-    await act(async () => {
-      result.current.toggleTheme();
-      // Attendre que le useEffect s'exécute
-      await new Promise((resolve) => setTimeout(resolve, 0));
+    // Attendre que le chargement soit terminé
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
     });
 
-    expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
+    act(() => {
+      result.current.toggleTheme();
+    });
+
+    await waitFor(() => {
+      expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
+    });
   });
 
   it("devrait gérer les erreurs lors du chargement des features", async () => {
@@ -106,11 +127,10 @@ describe("AppContext", () => {
       wrapper: AppContextProvider,
     });
 
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 0));
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
     });
 
-    expect(result.current.loading).toBe(false);
     expect(result.current.features).toEqual([]);
   });
 });
